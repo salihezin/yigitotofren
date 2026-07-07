@@ -127,33 +127,95 @@
   @keyframes fadeout{ to{ opacity:0; visibility:hidden; } }
 
   /* ---------- Header / Hero ---------- */
+  .eyebrow{ color:var(--yellow); font-size:0.95rem; margin-bottom:14px; }
   header.hero{
     min-height:100svh;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
-    text-align:center; padding: 100px 20px 60px;
+    text-align:center; padding:100px 20px 70px;
     background:
-      linear-gradient(rgba(24,25,27,0.55), rgba(24,25,27,0.85)),
-      url("foto5.jpeg") center / cover no-repeat,
+      url("tabela.png") center 38% / cover no-repeat,
       radial-gradient(ellipse at 50% 0%, #2a2c2f 0%, var(--asphalt) 60%);
     position:relative;
+    isolation:isolate;
+    overflow:hidden;
   }
-  .eyebrow{ color:var(--yellow); font-size:1.85rem; margin-bottom:18px; }
-  header.hero h1{ font-size:clamp(2.4rem, 7vw, 4.6rem); line-height:1.02; color:var(--off); }
+  header.hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      linear-gradient(90deg, rgba(10,12,15,0.74) 0%, rgba(10,12,15,0.48) 40%, rgba(10,12,15,0.28) 62%, rgba(10,12,15,0.56) 100%),
+      linear-gradient(180deg, rgba(8,10,12,0.35) 0%, rgba(8,10,12,0.08) 35%, rgba(8,10,12,0.55) 100%);
+    z-index:-1;
+  }
+  .hero-content{
+    width:min(680px, 100%);
+    padding:18px 20px 14px;
+    border-radius:12px;
+    background:linear-gradient(145deg, rgba(20,22,26,0.8), rgba(18,20,24,0.6));
+    border:1px solid rgba(244,193,15,0.18);
+    backdrop-filter:blur(8px);
+    box-shadow:0 12px 32px rgba(0,0,0,.42), inset 0 1px 0 rgba(236,233,225,0.12);
+    animation:hero-reveal .55s ease-out both;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+    margin-top:auto;
+  }
+  @keyframes hero-reveal{
+    from{ opacity:0; transform:translateY(14px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  header.hero .eyebrow{
+    font-size:clamp(0.88rem, 2vw, 1rem);
+    letter-spacing:0.16em;
+    margin-bottom:14px;
+  }
+  header.hero h1{
+    font-size:clamp(2.25rem, 6.2vw, 4.2rem);
+    line-height:1.03;
+    color:var(--off);
+    text-wrap:balance;
+    text-shadow:0 3px 18px rgba(0,0,0,0.42);
+  }
   header.hero h1 span{ color:var(--yellow); }
-  .tagline{ margin-top:18px; font-size:1.15rem; color:var(--muted); max-width:520px; }
-  .cta-row{ margin-top:38px; display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
+  .tagline{
+    margin-top:18px;
+    font-size:1.02rem;
+    color:var(--off);
+    max-width:560px;
+    line-height:1.55;
+  }
+  .cta-row{ margin-top:0; display:flex; gap:16px; flex-wrap:wrap; justify-content:center; align-items:center; }
   .btn{
     display:inline-flex; align-items:center; gap:10px;
-    padding:16px 28px; border-radius:8px; font-family:'Oswald',sans-serif;
-    text-transform:uppercase; letter-spacing:0.04em; font-weight:600; font-size:0.95rem;
-    text-decoration:none; border:2px solid transparent; transition:transform .15s ease;
+    padding:14px 24px; border-radius:8px; font-family:'Oswald',sans-serif;
+    text-transform:uppercase; letter-spacing:0.04em; font-weight:700; font-size:0.92rem;
+    text-decoration:none; border:2px solid transparent; transition:all .2s ease; box-shadow:0 4px 12px rgba(0,0,0,.28);
   }
-  .btn:hover{ transform: translateY(-2px); }
-  .btn-primary{ background:var(--red); color:#fff; }
-  .btn-ghost{ border-color:var(--muted); color:var(--off); }
+  .btn:hover{ transform: translateY(-3px); box-shadow:0 6px 16px rgba(0,0,0,.36); }
+  .btn-primary{ background:var(--red); color:#fff; font-weight:700; }
+  .btn-primary:hover{ background:#e63535; }
+  .btn-ghost{ border-color:rgba(236,233,225,0.55); color:var(--off); background:rgba(14,16,19,0.2); }
+  .btn-ghost:hover{ border-color:var(--yellow); }
   .btn svg{ width:20px; height:20px; }
-  .address-line{ margin-top:34px; color:var(--muted); font-size:0.9rem; }
+  .address-line{
+    margin-top:14px;
+    color:#d2d5d9;
+    font-size:0.85rem;
+    padding-top:12px;
+    border-top:1px solid rgba(244,193,15,0.12);
+    letter-spacing:0.01em;
+  }
   .address-line b{ color:var(--off); }
+
+  @media (max-width:640px){
+    header.hero{ padding:90px 14px 56px; }
+    .hero-content{ padding:22px 16px 18px; }
+    header.hero h1{ font-size:clamp(2rem, 10.5vw, 3rem); }
+    .tagline{ font-size:0.96rem; }
+  }
 
   /* ---------- Floating WhatsApp button ---------- */
   #fab{
@@ -257,17 +319,16 @@
 
 <!-- ================= HERO ================= -->
 <header class="hero" id="top">
-  <span class="eyebrow mono">İZMİR · ALİAĞA · YİĞİT OTO FREN </span>
-  <h1>Kamyonun mu<br>arızalandı? <span><br>Bize yaz.</span></h1>
-  <p class="tagline">Aliağa ve İzmir çevresinde 7/24 mobil kamyon fren tamiri ve genel arıza servisi. Yerinizden ayrılmadan, yerinde müdahale.</p>
-  <div class="cta-row">
-    <a class="btn btn-primary" href="https://wa.me/905075625038?text=Merhaba%2C%20kamyonumla%20ilgili%20yardım%20istiyorum." target="_blank" rel="noopener">
-      <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.001 3C9.373 3 4 8.373 4 15c0 2.34.646 4.526 1.77 6.396L4 29l7.79-1.744A11.94 11.94 0 0 0 16.001 27C22.628 27 28 21.627 28 15S22.628 3 16.001 3zm0 21.818c-1.99 0-3.85-.57-5.42-1.554l-.39-.232-4.62 1.035 1.06-4.5-.256-.406A9.77 9.77 0 0 1 5.182 15c0-5.965 4.854-10.818 10.819-10.818S26.818 9.035 26.818 15 21.966 24.818 16.001 24.818zm5.94-8.13c-.325-.163-1.923-.95-2.222-1.058-.298-.109-.515-.163-.732.163-.216.325-.84 1.058-1.03 1.276-.19.217-.38.244-.705.081-.325-.163-1.372-.505-2.614-1.61-.966-.861-1.618-1.925-1.808-2.25-.19-.325-.02-.5.143-.663.147-.146.325-.38.488-.57.163-.19.216-.325.325-.542.108-.217.054-.407-.027-.57-.081-.163-.732-1.763-1.003-2.416-.264-.634-.532-.548-.732-.558l-.624-.011c-.217 0-.57.081-.868.407-.298.325-1.138 1.112-1.138 2.712 0 1.6 1.165 3.146 1.328 3.363.163.217 2.293 3.5 5.556 4.909.776.335 1.382.535 1.854.685.779.248 1.489.213 2.05.129.625-.093 1.923-.786 2.194-1.545.271-.759.271-1.41.19-1.546-.081-.135-.298-.217-.623-.38z"/></svg>
-      WhatsApp'tan Yaz
-    </a>
-    <a class="btn btn-ghost" href="#konum">Yol Tarifi Al</a>
+  <div class="hero-content">
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://wa.me/905075625038?text=Merhaba%2C%20kamyonumla%20ilgili%20yardım%20istiyorum." target="_blank" rel="noopener">
+        <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.001 3C9.373 3 4 8.373 4 15c0 2.34.646 4.526 1.77 6.396L4 29l7.79-1.744A11.94 11.94 0 0 0 16.001 27C22.628 27 28 21.627 28 15S22.628 3 16.001 3zm0 21.818c-1.99 0-3.85-.57-5.42-1.554l-.39-.232-4.62 1.035 1.06-4.5-.256-.406A9.77 9.77 0 0 1 5.182 15c0-5.965 4.854-10.818 10.819-10.818S26.818 9.035 26.818 15 21.966 24.818 16.001 24.818zm5.94-8.13c-.325-.163-1.923-.95-2.222-1.058-.298-.109-.515-.163-.732.163-.216.325-.84 1.058-1.03 1.276-.19.217-.38.244-.705.081-.325-.163-1.372-.505-2.614-1.61-.966-.861-1.618-1.925-1.808-2.25-.19-.325-.02-.5.143-.663.147-.146.325-.38.488-.57.163-.19.216-.325.325-.542.108-.217.054-.407-.027-.57-.081-.163-.732-1.763-1.003-2.416-.264-.634-.532-.548-.732-.558l-.624-.011c-.217 0-.57.081-.868.407-.298.325-1.138 1.112-1.138 2.712 0 1.6 1.165 3.146 1.328 3.363.163.217 2.293 3.5 5.556 4.909.776.335 1.382.535 1.854.685.779.248 1.489.213 2.05.129.625-.093 1.923-.786 2.194-1.545.271-.759.271-1.41.19-1.546-.081-.135-.298-.217-.623-.38z"/></svg>
+        WhatsApp'tan Yaz
+      </a>
+      <a class="btn btn-ghost" href="#konum">Yol Tarifi Al</a>
+    </div>
+    <div class="address-line">📍 <b>Yiğit Oto Fren</b> · Aliağa / İzmir · Her gün 07:00–23:00, acil durumda 7/24</div>
   </div>
-  <div class="address-line">📍 <b>Yiğit Oto Fren</b> · Aliağa / İzmir · Her gün 07:00–23:00, acil durumda 7/24</div>
 </header>
 
 <div class="stripe"></div>
